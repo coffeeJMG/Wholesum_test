@@ -19,6 +19,21 @@ model User {
   hashedPassword  String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  nickname        String 
   
+}
+
+model Product {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  url String
+  price String
+  descKr String
+  descEn String
+  fit String 
+  thickness String
+  size1 Int
+  size2 Int
+  size3 Int
+  size4 Int
+  color String
 }

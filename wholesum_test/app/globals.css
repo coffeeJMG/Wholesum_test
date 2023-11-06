@@ -10,3 +10,12 @@
 .mySwiper img {
     @apply h-full w-full object-cover;
 }
+
+.text-background {
+    /* Create a gradient that fades from transparent to white */
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.6) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+}

@@ -4,6 +4,7 @@ import { ClientOnly } from "./ClientOnly";
 import { Container } from "./components/Container";
 import { ToasterProvider } from "./providers/ToasterProvider";
 import { Navbar } from "./components/Navbar";
+import { ProductDetail } from "./detailPage/[detailPageId]/ProductDetail";
 
 export const metadata: Metadata = {
     title: "Create Next App",

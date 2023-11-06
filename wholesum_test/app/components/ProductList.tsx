@@ -1,5 +1,9 @@
 "use client";
 
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
 interface Product {
     id: string;
     name: string;
@@ -12,12 +16,25 @@ interface Product {
     color: string;
 }
 
-interface ProductListProps {
-    productList: Product[];
-}
+export const ProductList = () => {
+    const router = useRouter();
+    const [productList, setProductList] = useState<Product[]>([]);
 
-export const ProductList: React.FC<ProductListProps> = ({ productList }) => {
-    function LinkToDetail() {}
+    useEffect(() => {
+        // 비동기 함수를 선언합니다.
+        const fetchProductList = async () => {
+            try {
+                const response = await axios.get("/api/productList");
+                // 상태를 업데이트 합니다.
+                setProductList(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        // 선언된 비동기 함수를 호출합니다.
+        fetchProductList();
+    }, []);
 
     // 금액에 KRW 표시할 때 만단위마다 , 추가 함수
     function formatPrice(price: string): string {
@@ -51,15 +68,17 @@ export const ProductList: React.FC<ProductListProps> = ({ productList }) => {
                             width={400}
                             height={400}
                             className="cursor-pointer"
-                            onClick={LinkToDetail}
+                            onClick={() =>
+                                router.push(`/detailPage/${product.id}`)
+                            }
                         />
                     </div>
                     <div className="flex justify-between">
                         <p>{product.name}</p>
                         <p>{product.color}</p>
                     </div>
-                    <p>{product.descEn}</p>
-                    <p>{product.descKr}</p>
+                    <p className="text-sm/[30px]">{product.descEn}</p>
+                    <p className="text-neutral-300">{product.descKr}</p>
                     <p>KRW : {formatPrice(product.price)}</p>
                 </div>
             ))}

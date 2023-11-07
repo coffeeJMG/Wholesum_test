@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { border, colors } from "../type/constants";
+import { border, classPattern, colors, size } from "../type/constants";
 import { updateProductStore } from "../\bstores/updateProductStore";
 
 interface Product {
@@ -16,6 +16,10 @@ interface Product {
     fit: string;
     thickness: string;
     color: string;
+    size1: number;
+    size2: number;
+    size3: number;
+    size4: number;
 }
 
 interface categoryProps {
@@ -31,22 +35,32 @@ export const ProductList: React.FC<categoryProps> = ({ category }) => {
     useEffect(() => {
         const fetchProductList = async () => {
             try {
+                setUpdatedProductList(false);
                 const response = await axios.post("/api/productList", {
                     category,
                 });
                 // 반환된 상품 목록을 상태저장
+
                 setProductList(response.data);
             } catch (error) {
                 console.error(error);
             }
-
-            return () => {
-                setUpdatedProductList(false);
-            };
         };
 
         fetchProductList();
     }, [updatedProductList]);
+
+    // 상품 삭제 함수
+    const handleDelete = async (productId: string) => {
+        try {
+            await axios.delete("/api/deleteItem", {
+                data: { id: productId },
+            });
+            setUpdatedProductList(true);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     // 금액에 KRW 표시할 때 만단위마다 , 추가 함수
     function formatPrice(price: string): string {
@@ -96,6 +110,59 @@ export const ProductList: React.FC<categoryProps> = ({ category }) => {
                         {product.descKr}
                     </p>
                     <p>KRW : {formatPrice(product.price)}</p>
+                    <div className="flex justify-between">
+                        <p className={`${size.basicSize}`}>size</p>
+                        <div className="flex gap-1">
+                            <div
+                                className={`${
+                                    product.size1 > 0
+                                        ? classPattern.stockDiv
+                                        : classPattern.nonStockDiv
+                                }`}
+                            >
+                                {product.size1}
+                            </div>
+                            <div
+                                className={`${
+                                    product.size2 > 0
+                                        ? classPattern.stockDiv
+                                        : classPattern.nonStockDiv
+                                }`}
+                            >
+                                {product.size2}
+                            </div>
+                            <div
+                                className={`${
+                                    product.size3 > 0
+                                        ? classPattern.stockDiv
+                                        : classPattern.nonStockDiv
+                                }`}
+                            >
+                                {product.size3}
+                            </div>
+                            <div
+                                className={`${
+                                    product.size4 > 0
+                                        ? classPattern.stockDiv
+                                        : classPattern.nonStockDiv
+                                }`}
+                            >
+                                {product.size4}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex justify-end gap-5">
+                        <button className={`border-b-2 border-neutral-600 p-2`}>
+                            수정하기
+                        </button>
+                        <button
+                            className={`border-b-2 border-neutral-600 p-2`}
+                            onClick={() => handleDelete(product.id)}
+                        >
+                            삭제하기
+                        </button>
+                    </div>
                 </div>
             ))}
         </div>

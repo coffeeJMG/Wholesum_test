@@ -3,12 +3,13 @@
 import { useRouter } from "next/navigation";
 import { border, classPattern, colors, size } from "../type/constants";
 import { useMemo, useState } from "react";
+import { newAddItem } from "../hooks/newAddItemModal";
 
 // 네비게이션 컴포넌트
 export const Navbar: React.FC = () => {
     const router = useRouter();
     const [isHovering, setIsHovering] = useState(false);
-
+    const AddItemModal = newAddItem();
     //최적화를 위해 useMemo 사용
     const dropdownClasses = useMemo(() => {
         return `absolute w-full overflow-hidden z-10 transition-all duration-500 ease-out ${
@@ -32,7 +33,7 @@ export const Navbar: React.FC = () => {
                         POTTERY
                     </p>
                 </div>
-                <div className="justify-self-center ml-10">
+                <div className="flex justify-self-center items-center gap-5 ml-10">
                     <p className="cursor-pointer">제품</p>
                 </div>
             </div>
@@ -67,6 +68,7 @@ export const Navbar: React.FC = () => {
                         </p>
                     </div>
 
+                    <div>나중에 사용할 공간</div>
                     <div>
                         <p className={`${classPattern.subNavClass}`}>
                             나중에 사용할 공간
@@ -74,12 +76,14 @@ export const Navbar: React.FC = () => {
                     </div>
                     <div>
                         <p className={`${classPattern.subNavClass}`}>
-                            나중에 사용할 공간
+                            관리자 기능
                         </p>
-                    </div>
-                    <div>
-                        <p className={`${classPattern.subNavClass}`}>
-                            나중에 사용할 공간
+
+                        <p
+                            className="cursor-pointer inline-block self-start"
+                            onClick={AddItemModal.onOpen}
+                        >
+                            상품추가하기
                         </p>
                     </div>
                 </div>

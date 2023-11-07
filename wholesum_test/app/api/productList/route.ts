@@ -19,6 +19,7 @@ export async function POST(request: Request) {
         });
 
         // 상품 목록을 반환
+
         return NextResponse.json(productList);
     } catch (error: any) {
         throw new Error(error);

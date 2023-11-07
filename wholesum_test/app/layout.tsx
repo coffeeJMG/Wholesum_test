@@ -5,6 +5,7 @@ import { Container } from "./components/Container";
 import { ToasterProvider } from "./providers/ToasterProvider";
 import { Navbar } from "./components/Navbar";
 import { ProductDetail } from "./detailPage/[detailPageId]/ProductDetail";
+import AddItemModal from "./components/modal/AddItemModal";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -22,6 +23,7 @@ export default function RootLayout({
                 <ClientOnly>
                     <Navbar />
                     <ToasterProvider />
+                    <AddItemModal />
                 </ClientOnly>
                 <Container>{children}</Container>
             </body>

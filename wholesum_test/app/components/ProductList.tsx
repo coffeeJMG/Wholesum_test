@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { border, colors } from "../type/constants";
 
 interface Product {
     id: string;
@@ -16,23 +17,23 @@ interface Product {
     color: string;
 }
 
+// 전체상품 페이지
 export const ProductList = () => {
     const router = useRouter();
     const [productList, setProductList] = useState<Product[]>([]);
 
+    // 페이지 최초 렌더링 시에 상품 목록조회
     useEffect(() => {
-        // 비동기 함수를 선언합니다.
         const fetchProductList = async () => {
             try {
                 const response = await axios.get("/api/productList");
-                // 상태를 업데이트 합니다.
+                // 반환된 상품 목록을 상태저장
                 setProductList(response.data);
             } catch (error) {
                 console.error(error);
             }
         };
 
-        // 선언된 비동기 함수를 호출합니다.
         fetchProductList();
     }, []);
 
@@ -61,7 +62,9 @@ export const ProductList = () => {
         <div className="flex justify-center gap-4">
             {productList.map((product) => (
                 <div key={product.id}>
-                    <div className="border-b-2 border-neutral-600 ">
+                    <div
+                        className={`${border.borderBottom} ${colors.borderColor}`}
+                    >
                         <img
                             src={product.url}
                             alt={product.name}
@@ -78,7 +81,9 @@ export const ProductList = () => {
                         <p>{product.color}</p>
                     </div>
                     <p className="text-sm/[30px]">{product.descEn}</p>
-                    <p className="text-neutral-300">{product.descKr}</p>
+                    <p className={`${colors.transparentTextColor}`}>
+                        {product.descKr}
+                    </p>
                     <p>KRW : {formatPrice(product.price)}</p>
                 </div>
             ))}

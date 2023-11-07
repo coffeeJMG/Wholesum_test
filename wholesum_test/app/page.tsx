@@ -1,9 +1,9 @@
-import { HomePage } from "./components/HomePage";
+import MainPage from "./homepage/page";
 
 export default async function Home() {
     return (
         <>
-            <HomePage />
+            <MainPage />
         </>
     );
 }

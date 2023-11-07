@@ -13,12 +13,15 @@ export interface LoginFormInput {
     password: string;
 }
 
+// 로그인페이지
+
 const LoginForm = () => {
     const router = useRouter();
 
+    // 로그인 된 유저라면 홈페이지로 이동
     // useEffect(() => {
     //     if (currentUser) {
-    //         router.push("/startPage");
+    //         router.push("/homepage");
     //     }
     // }, [currentUser, router]);
 

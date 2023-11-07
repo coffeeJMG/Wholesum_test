@@ -1,5 +1,6 @@
 "use client";
 
+// 페이지 전체 크기
 interface ContainerProps {
     children: React.ReactNode;
 }

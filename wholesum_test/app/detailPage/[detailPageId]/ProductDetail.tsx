@@ -1,5 +1,7 @@
 "use client";
 
+import { colors } from "@/app/type/constants";
+
 interface Product {
     id: string;
     name: string;
@@ -20,6 +22,8 @@ export const ProductDetail: React.FC<ProductProps> = ({ product }) => {
     if (!product) {
         return null;
     }
+
+    //props로 받은 정보를 바탕으로 렌더링
     return (
         <>
             <div className="flex-col w-1/4 mx-auto mt-3">
@@ -29,7 +33,9 @@ export const ProductDetail: React.FC<ProductProps> = ({ product }) => {
                     <img src={product.url} width={400} height={400} />
                 </div>
 
-                <div className="flex justify-center border-2 border-neutral-600">
+                <div
+                    className={`flex justify-center border-2 ${colors.textColor}`}
+                >
                     웹 개발자가 필요한 이유는
                 </div>
             </div>

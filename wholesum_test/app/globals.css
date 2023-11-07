@@ -12,7 +12,7 @@
 }
 
 .text-background {
-    /* Create a gradient that fades from transparent to white */
+    /* 배경 투명도 조절하는 그라데이션 */
     background: linear-gradient(
         to right,
         rgba(255, 255, 255, 0.6) 0%,

@@ -1,5 +1,6 @@
 import prisma from "@/app/libs/prismadb";
 
+// prams로 상품의 ID 를 받아 해당 상품 정보 조회하는 코드
 export interface IParams {
     detailPageId: string;
 }
@@ -32,6 +33,7 @@ export const getProductId = async (params: IParams) => {
             return null;
         }
 
+        // 찾은 데이터를 반환
         return {
             ...product,
         };

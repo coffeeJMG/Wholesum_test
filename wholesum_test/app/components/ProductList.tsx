@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { border, colors } from "../type/constants";
+import { updateProductStore } from "../\bstores/updateProductStore";
 
 interface Product {
     id: string;
@@ -25,7 +26,7 @@ interface categoryProps {
 export const ProductList: React.FC<categoryProps> = ({ category }) => {
     const router = useRouter();
     const [productList, setProductList] = useState<Product[]>([]);
-
+    const { updatedProductList, setUpdatedProductList } = updateProductStore();
     //페이지 최초 렌더링 시에 상품 목록조회
     useEffect(() => {
         const fetchProductList = async () => {
@@ -38,10 +39,14 @@ export const ProductList: React.FC<categoryProps> = ({ category }) => {
             } catch (error) {
                 console.error(error);
             }
+
+            return () => {
+                setUpdatedProductList(false);
+            };
         };
 
         fetchProductList();
-    }, []);
+    }, [updatedProductList]);
 
     // 금액에 KRW 표시할 때 만단위마다 , 추가 함수
     function formatPrice(price: string): string {

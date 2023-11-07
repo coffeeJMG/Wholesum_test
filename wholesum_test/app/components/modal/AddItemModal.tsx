@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { SignInput } from "../Input";
 import { newAddItem } from "@/app/hooks/newAddItemModal";
 import { useState } from "react";
+import { updateProductStore } from "@/app/\bstores/updateProductStore";
 
 // react-select 라이브러리 커스텀
 const personnelSelectStyles: StylesConfig = {
@@ -51,8 +52,8 @@ const personnelSelectStyles: StylesConfig = {
 const AddItemModal = () => {
     const newAddItemModal = newAddItem();
     const router = useRouter();
-    const [src, setSrc] = useState("");
     const [file, setFile] = useState<File | null>(null);
+    const { setUpdatedProductList } = updateProductStore();
 
     const {
         register,
@@ -60,7 +61,6 @@ const AddItemModal = () => {
         formState: { errors },
         reset,
         control,
-        setValue,
     } = useForm<FieldValues>({
         defaultValues: {
             name: "",
@@ -72,10 +72,10 @@ const AddItemModal = () => {
             thickness: "",
             color: "",
             category: "",
-            size1: 1,
-            size2: 1,
-            size3: 1,
-            size4: 1,
+            size1: 0,
+            size2: 0,
+            size3: 0,
+            size4: 0,
             ReactSelect: { value: "", label: "카테고리" },
         },
     });
@@ -142,9 +142,24 @@ const AddItemModal = () => {
 
             // 여기서 서버로 상품 추가 요청을 보냅니다.
             const response = await axios.post("/api/addItem", postData);
-
-            // 요청 성공 후의 처리...
-            console.log(response.data);
+            setUpdatedProductList(true);
+            newAddItemModal.onClose();
+            reset({
+                name: "",
+                url: "",
+                price: "",
+                descKr: "",
+                descEn: "",
+                fit: "",
+                thickness: "",
+                color: "",
+                category: "",
+                size1: 0,
+                size2: 0,
+                size3: 0,
+                size4: 0,
+                ReactSelect: { value: "", label: "카테고리" },
+            });
         } catch (error) {
             console.error("Error adding item:", error);
         }
@@ -217,6 +232,7 @@ const AddItemModal = () => {
                         <SignInput
                             {...register("size1", {
                                 required: "사이즈 1",
+                                setValueAs: (value) => parseInt(value, 10),
                             })}
                             placeholder="사이즈 1"
                         />
@@ -225,6 +241,7 @@ const AddItemModal = () => {
                         <SignInput
                             {...register("size2", {
                                 required: "사이즈 2",
+                                setValueAs: (value) => parseInt(value, 10),
                             })}
                             placeholder="사이즈 2"
                         />
@@ -233,6 +250,7 @@ const AddItemModal = () => {
                         <SignInput
                             {...register("size3", {
                                 required: "사이즈 3",
+                                setValueAs: (value) => parseInt(value, 10),
                             })}
                             placeholder="사이즈 3"
                         />
@@ -241,6 +259,7 @@ const AddItemModal = () => {
                         <SignInput
                             {...register("size4", {
                                 required: "사이즈 4",
+                                setValueAs: (value) => parseInt(value, 10),
                             })}
                             placeholder="사이즈 4"
                         />

@@ -12,3 +12,7 @@ export const size = {
 export const border = {
     borderBottom: "border-b-2",
 };
+
+export const classPattern = {
+    subNavClass: "mb-3 text-xl",
+};

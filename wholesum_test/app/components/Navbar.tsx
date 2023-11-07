@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { border, colors, size } from "../type/constants";
-import { useMemo, useCallback, useState } from "react";
+import { border, classPattern, colors, size } from "../type/constants";
+import { useMemo, useState } from "react";
 
 // 네비게이션 컴포넌트
 export const Navbar: React.FC = () => {
@@ -19,7 +19,7 @@ export const Navbar: React.FC = () => {
     return (
         <>
             <div
-                className={`flex items-center gap-5 p-2 ${colors.borderColor}`}
+                className={`flex items-center gap-5 p-2 ${border.borderBottom} ${colors.borderColor}`}
                 onMouseEnter={() => setIsHovering(true)}
             >
                 <div className="justify-self-center ml-10">
@@ -41,30 +41,46 @@ export const Navbar: React.FC = () => {
                 onMouseLeave={() => setIsHovering(false)}
             >
                 <div
-                    className={`p-2 ${colors.textColor} w-full border-neutral-200 border-2 grid grid-cols-5 gap-4 bg-white`}
+                    className={`p-2 ${colors.textColor} w-full border-neutral-200 border-2 border-t-0 grid grid-cols-5 gap-4 bg-white`}
                 >
                     <div>
-                        <p className="mb-3 text-xl">나중에 사용할 공간</p>
+                        <p className={`${classPattern.subNavClass}`}>
+                            나중에 사용할 공간
+                        </p>
                     </div>
 
                     <div className="flex flex-col">
-                        <p className="mb-3 text-xl">카테고리</p>
-                        <p className="cursor-pointer inline-block self-start">
+                        <p className={`${classPattern.subNavClass}`}>
+                            카테고리
+                        </p>
+                        <p
+                            className="cursor-pointer inline-block self-start"
+                            onClick={() => router.push(`/productPage/shirts`)}
+                        >
                             셔츠
                         </p>
-                        <p className="cursor-pointer inline-block self-start">
+                        <p
+                            className="cursor-pointer inline-block self-start"
+                            onClick={() => router.push(`/productPage/denim`)}
+                        >
                             데님
                         </p>
                     </div>
 
                     <div>
-                        <p className="mb-3 text-xl">나중에 사용할 공간</p>
+                        <p className={`${classPattern.subNavClass}`}>
+                            나중에 사용할 공간
+                        </p>
                     </div>
                     <div>
-                        <p className="mb-3 text-xl">나중에 사용할 공간</p>
+                        <p className={`${classPattern.subNavClass}`}>
+                            나중에 사용할 공간
+                        </p>
                     </div>
                     <div>
-                        <p className="mb-3 text-xl">나중에 사용할 공간</p>
+                        <p className={`${classPattern.subNavClass}`}>
+                            나중에 사용할 공간
+                        </p>
                     </div>
                 </div>
             </div>

@@ -36,4 +36,5 @@ model Product {
   size3 Int
   size4 Int
   color String
+  category String
 }

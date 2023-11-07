@@ -17,16 +17,22 @@ interface Product {
     color: string;
 }
 
+interface categoryProps {
+    category: string;
+}
+
 // 전체상품 페이지
-export const ProductList = () => {
+export const ProductList: React.FC<categoryProps> = ({ category }) => {
     const router = useRouter();
     const [productList, setProductList] = useState<Product[]>([]);
 
-    // 페이지 최초 렌더링 시에 상품 목록조회
+    //페이지 최초 렌더링 시에 상품 목록조회
     useEffect(() => {
         const fetchProductList = async () => {
             try {
-                const response = await axios.get("/api/productList");
+                const response = await axios.post("/api/productList", {
+                    category,
+                });
                 // 반환된 상품 목록을 상태저장
                 setProductList(response.data);
             } catch (error) {

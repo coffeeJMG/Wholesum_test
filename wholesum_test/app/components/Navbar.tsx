@@ -3,13 +3,13 @@
 import { useRouter } from "next/navigation";
 import { border, classPattern, colors, size } from "../type/constants";
 import { useMemo, useState } from "react";
-import { newAddItem } from "../hooks/newAddItemModal";
+import { useAddItem } from "../hooks/useAddItemModal";
 
 // 네비게이션 컴포넌트
 export const Navbar: React.FC = () => {
     const router = useRouter();
     const [isHovering, setIsHovering] = useState(false);
-    const AddItemModal = newAddItem();
+    const AddItemModal = useAddItem();
     //최적화를 위해 useMemo 사용
     const dropdownClasses = useMemo(() => {
         return `absolute w-full overflow-hidden z-10 transition-all duration-500 ease-out ${

@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { border, classPattern, colors, size } from "../type/constants";
 import { updateProductStore } from "../\bstores/updateProductStore";
+import { useEditItem } from "../hooks/useEditItemModal";
+import useEditItemStore from "../\bstores/editItemInfoStore";
 
-interface Product {
+export interface Product {
     id: string;
     name: string;
     url: string;
@@ -31,6 +33,10 @@ export const ProductList: React.FC<categoryProps> = ({ category }) => {
     const router = useRouter();
     const [productList, setProductList] = useState<Product[]>([]);
     const { updatedProductList, setUpdatedProductList } = updateProductStore();
+    const { editId, setEditId } = useEditItemStore(); // 상태 업데이트 함수를 가져옵니다.
+
+    const editItemModal = useEditItem();
+
     //페이지 최초 렌더링 시에 상품 목록조회
     useEffect(() => {
         const fetchProductList = async () => {
@@ -39,7 +45,6 @@ export const ProductList: React.FC<categoryProps> = ({ category }) => {
                 const response = await axios.post("/api/productList", {
                     category,
                 });
-                // 반환된 상품 목록을 상태저장
 
                 setProductList(response.data);
             } catch (error) {
@@ -60,6 +65,11 @@ export const ProductList: React.FC<categoryProps> = ({ category }) => {
         } catch (error) {
             console.error(error);
         }
+    };
+
+    const handleEdit = (productId: string) => {
+        setEditId(productId); // editId 상태를 업데이트합니다.
+        editItemModal.onOpen(); // 모달을 엽니다.
     };
 
     // 금액에 KRW 표시할 때 만단위마다 , 추가 함수
@@ -153,7 +163,10 @@ export const ProductList: React.FC<categoryProps> = ({ category }) => {
                     </div>
 
                     <div className="flex justify-end gap-5">
-                        <button className={`border-b-2 border-neutral-600 p-2`}>
+                        <button
+                            className={`border-b-2 border-neutral-600 p-2`}
+                            onClick={() => handleEdit(product.id)} // onClick에 handleEdit 함수를 연결합니다.
+                        >
                             수정하기
                         </button>
                         <button

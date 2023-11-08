@@ -10,11 +10,12 @@ import {
 import ReactSelect, { StylesConfig } from "react-select";
 
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { SignInput } from "../Input";
-import { useAddItem } from "@/app/hooks/useAddItemModal";
-import { useState } from "react";
+import { useEditItem } from "@/app/hooks/useEditItemModal";
+import { useEffect, useState } from "react";
 import { updateProductStore } from "@/app/\bstores/updateProductStore";
+import useEditItemStore from "@/app/\bstores/editItemInfoStore";
+import { Product } from "../ProductList";
 
 // react-select 라이브러리 커스텀
 const personnelSelectStyles: StylesConfig = {
@@ -49,11 +50,15 @@ const personnelSelectStyles: StylesConfig = {
     },
 };
 
-const AddItemModal = () => {
-    const newAddItemModal = useAddItem();
-    const router = useRouter();
+const EditItemModal = () => {
+    const newEditModal = useEditItem();
     const [file, setFile] = useState<File | null>(null);
     const { setUpdatedProductList } = updateProductStore();
+    const { editId, setEditId } = useEditItemStore();
+
+    useEffect(() => {
+        console.log(editId);
+    }, [editId]);
 
     const {
         register,
@@ -65,18 +70,17 @@ const AddItemModal = () => {
         defaultValues: {
             name: "",
             url: "",
-            price: "",
+            price: 0,
             descKr: "",
             descEn: "",
             fit: "",
             thickness: "",
             color: "",
-            category: "",
             size1: 0,
             size2: 0,
             size3: 0,
             size4: 0,
-            ReactSelect: { value: "", label: "카테고리" },
+            ReactSelect: { value: "", label: "" },
         },
     });
 
@@ -131,35 +135,20 @@ const AddItemModal = () => {
             }
         }
 
-        // 상품 추가 로직
+        // 상품 수정 로직
         try {
             // hook-form 으로 받은 데이터 + S3 이미지 경로를 합쳐 새로 생성될 product 더미데이터 생성
             const postData = {
                 ...data,
+                id: editId,
                 url: uploadedImageUrl, // S3에 업로드된 이미지 URL 사용
                 category: data.ReactSelect.value,
             };
 
             // 여기서 서버로 상품 추가 요청을 보냅니다.
-            const response = await axios.post("/api/addItem", postData);
+            const response = await axios.post("/api/editItem", postData);
             setUpdatedProductList(true);
-            newAddItemModal.onClose();
-            reset({
-                name: "",
-                url: "",
-                price: "",
-                descKr: "",
-                descEn: "",
-                fit: "",
-                thickness: "",
-                color: "",
-                category: "",
-                size1: 0,
-                size2: 0,
-                size3: 0,
-                size4: 0,
-                ReactSelect: { value: "", label: "카테고리" },
-            });
+            newEditModal.onClose();
         } catch (error) {
             console.error("Error adding item:", error);
         }
@@ -176,7 +165,6 @@ const AddItemModal = () => {
                         {...register("name", {
                             required: "상품명을 입력해주세요",
                         })}
-                        placeholder="상품명을 입력해주세요"
                     />
                 </div>
                 <div className="flex flex-row items-center gap-10">
@@ -303,7 +291,7 @@ const AddItemModal = () => {
                     </div>
                 </div>
 
-                <button>상품 추가하기</button>
+                <button>상품 수정하기</button>
             </form>
         </>
     );
@@ -311,13 +299,13 @@ const AddItemModal = () => {
     return (
         <>
             <Modal
-                isOpen={newAddItemModal.isOpen}
-                title="상품 추가하기"
-                onClose={newAddItemModal.onClose}
+                isOpen={newEditModal.isOpen}
+                title="상품 수정하기"
+                onClose={newEditModal.onClose}
                 body={bodyContent}
             />
         </>
     );
 };
 
-export default AddItemModal;
+export default EditItemModal;

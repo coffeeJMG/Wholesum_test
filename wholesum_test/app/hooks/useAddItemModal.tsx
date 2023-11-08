@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
-interface newAddItmStore {
+interface useAddItemStore {
     isOpen: boolean;
     onOpen: () => void;
     onClose: () => void;
 }
-export const newAddItem = create<newAddItmStore>((set) => ({
+export const useAddItem = create<useAddItemStore>((set) => ({
     isOpen: false,
     onOpen: () => set({ isOpen: true }),
     onClose: () => set({ isOpen: false }),

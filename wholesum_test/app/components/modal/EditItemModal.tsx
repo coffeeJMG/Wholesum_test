@@ -15,6 +15,7 @@ import { useEditItem } from "@/app/hooks/useEditItemModal";
 import { useEffect, useState } from "react";
 import { updateProductStore } from "@/app/\bstores/updateProductStore";
 import useEditItemStore from "@/app/\bstores/editItemInfoStore";
+import toast from "react-hot-toast";
 
 // react-select 라이브러리 커스텀
 const personnelSelectStyles: StylesConfig = {
@@ -122,7 +123,7 @@ const EditItemModal = () => {
                 });
 
                 if (!response.ok) {
-                    throw new Error("File upload failed");
+                    throw new Error("파일 업로드에 실패했습니다");
                 }
 
                 // 성공적으로 업로드되면 이미지 URL을 설정합니다.
@@ -167,7 +168,7 @@ const EditItemModal = () => {
             });
             newEditModal.onClose(); // 수정 api요청 후 모달 종료
         } catch (error) {
-            console.error("Error adding item:", error);
+            console.error("아이템 추가에 실패했습니다.", error);
         }
     };
 

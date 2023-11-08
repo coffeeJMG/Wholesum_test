@@ -50,10 +50,9 @@ const personnelSelectStyles: StylesConfig = {
 };
 
 const AddItemModal = () => {
-    const newAddItemModal = useAddItem();
-    const router = useRouter();
-    const [file, setFile] = useState<File | null>(null);
-    const { setUpdatedProductList } = updateProductStore();
+    const newAddItemModal = useAddItem(); // 상품추가 모달 생성,종료 함수담은 변수 전역상태관리
+    const [file, setFile] = useState<File | null>(null); // 이미지 파일 상태관리
+    const { setUpdatedProductList } = updateProductStore(); // 상품 목록의 변화 전역상태관리
 
     const {
         register,

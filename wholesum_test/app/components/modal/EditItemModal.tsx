@@ -15,7 +15,6 @@ import { useEditItem } from "@/app/hooks/useEditItemModal";
 import { useEffect, useState } from "react";
 import { updateProductStore } from "@/app/\bstores/updateProductStore";
 import useEditItemStore from "@/app/\bstores/editItemInfoStore";
-import { Product } from "../ProductList";
 
 // react-select 라이브러리 커스텀
 const personnelSelectStyles: StylesConfig = {
@@ -51,11 +50,12 @@ const personnelSelectStyles: StylesConfig = {
 };
 
 const EditItemModal = () => {
-    const newEditModal = useEditItem();
-    const [file, setFile] = useState<File | null>(null);
-    const { setUpdatedProductList } = updateProductStore();
-    const { editId, setEditId } = useEditItemStore();
+    const newEditModal = useEditItem(); // 상품수정 모달 생성, 닫기 함수 전역상태관리
+    const [file, setFile] = useState<File | null>(null); // 이미지 파일 상태관리
+    const { setUpdatedProductList } = updateProductStore(); // 상품 목록 변화 전역상태관리
+    const { editId, setEditId } = useEditItemStore(); // 편집할 ID 전역 상태관리
 
+    // 수정할 상품의 ID 를 zustand로 전역관리
     useEffect(() => {
         console.log(editId);
     }, [editId]);
@@ -70,7 +70,7 @@ const EditItemModal = () => {
         defaultValues: {
             name: "",
             url: "",
-            price: 0,
+            price: "",
             descKr: "",
             descEn: "",
             fit: "",
@@ -138,9 +138,10 @@ const EditItemModal = () => {
         // 상품 수정 로직
         try {
             // hook-form 으로 받은 데이터 + S3 이미지 경로를 합쳐 새로 생성될 product 더미데이터 생성
+
             const postData = {
                 ...data,
-                id: editId,
+                id: editId, // 수정할 상품의 ID 를 추가
                 url: uploadedImageUrl, // S3에 업로드된 이미지 URL 사용
                 category: data.ReactSelect.value,
             };
@@ -148,7 +149,23 @@ const EditItemModal = () => {
             // 여기서 서버로 상품 추가 요청을 보냅니다.
             const response = await axios.post("/api/editItem", postData);
             setUpdatedProductList(true);
-            newEditModal.onClose();
+            reset({
+                name: "",
+                url: "",
+                price: "",
+                descKr: "",
+                descEn: "",
+                fit: "",
+                thickness: "",
+                color: "",
+                category: "",
+                size1: 0,
+                size2: 0,
+                size3: 0,
+                size4: 0,
+                ReactSelect: { value: "", label: "카테고리" },
+            });
+            newEditModal.onClose(); // 수정 api요청 후 모달 종료
         } catch (error) {
             console.error("Error adding item:", error);
         }
@@ -165,6 +182,7 @@ const EditItemModal = () => {
                         {...register("name", {
                             required: "상품명을 입력해주세요",
                         })}
+                        placeholder="상품명을 입력해주세요"
                     />
                 </div>
                 <div className="flex flex-row items-center gap-10">

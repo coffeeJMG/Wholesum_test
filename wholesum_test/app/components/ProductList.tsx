@@ -120,7 +120,7 @@ export const ProductList: React.FC<categoryProps> = ({ category }) => {
                         {product.descKr}
                     </p>
                     <p>KRW : {formatPrice(product.price)}</p>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between my-3">
                         <p className={`${size.basicSize}`}>size</p>
                         <div className="flex gap-1">
                             <div
@@ -164,13 +164,13 @@ export const ProductList: React.FC<categoryProps> = ({ category }) => {
 
                     <div className="flex justify-end gap-5">
                         <button
-                            className={`border-b-2 border-neutral-600 p-2`}
+                            className={`${border.borderBottom} ${colors.textColor} p-2`}
                             onClick={() => handleEdit(product.id)} // onClick에 handleEdit 함수를 연결합니다.
                         >
                             수정하기
                         </button>
                         <button
-                            className={`border-b-2 border-neutral-600 p-2`}
+                            className={`${border.borderBottom} ${colors.textColor} p-2`}
                             onClick={() => handleDelete(product.id)}
                         >
                             삭제하기

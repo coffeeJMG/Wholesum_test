@@ -4,7 +4,6 @@ import { ClientOnly } from "./ClientOnly";
 import { Container } from "./components/Container";
 import { ToasterProvider } from "./providers/ToasterProvider";
 import { Navbar } from "./components/Navbar";
-import { ProductDetail } from "./detailPage/[detailPageId]/ProductDetail";
 import AddItemModal from "./components/modal/AddItemModal";
 import EditItemModal from "./components/modal/EditItemModal";
 

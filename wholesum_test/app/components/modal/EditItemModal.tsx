@@ -11,11 +11,10 @@ import ReactSelect, { StylesConfig } from "react-select";
 
 import axios from "axios";
 import { SignInput } from "../Input";
-import { useEditItem } from "@/app/hooks/useEditItemModal";
+import { useEditItem } from "../../hooks/useEditItemModal";
 import { useEffect, useState } from "react";
-import { updateProductStore } from "@/app/\bstores/updateProductStore";
-import useEditItemStore from "@/app/\bstores/editItemInfoStore";
-import toast from "react-hot-toast";
+import { updateProductStore } from "../../stores/updateProductStore";
+import useEditItemStore from "../../stores/editItemInfoStore";
 
 // react-select 라이브러리 커스텀
 const personnelSelectStyles: StylesConfig = {

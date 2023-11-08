@@ -10,11 +10,10 @@ import {
 import ReactSelect, { StylesConfig } from "react-select";
 
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { SignInput } from "../Input";
-import { useAddItem } from "@/app/hooks/useAddItemModal";
+import { useAddItem } from "../../hooks/useAddItemModal";
 import { useState } from "react";
-import { updateProductStore } from "@/app/\bstores/updateProductStore";
+import { updateProductStore } from "../../stores/updateProductStore";
 
 // react-select 라이브러리 커스텀
 const personnelSelectStyles: StylesConfig = {

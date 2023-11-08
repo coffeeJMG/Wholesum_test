@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ClientOnly } from "./ClientOnly";
 import { Container } from "./components/Container";
-import { ToasterProvider } from "./providers/ToasterProvider";
 import { Navbar } from "./components/Navbar";
 import AddItemModal from "./components/modal/AddItemModal";
 import EditItemModal from "./components/modal/EditItemModal";
@@ -22,7 +21,6 @@ export default function RootLayout({
             <body>
                 <ClientOnly>
                     <Navbar />
-                    <ToasterProvider />
                     <AddItemModal />
                     <EditItemModal />
                 </ClientOnly>

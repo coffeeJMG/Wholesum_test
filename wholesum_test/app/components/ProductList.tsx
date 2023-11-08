@@ -4,9 +4,9 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { border, classPattern, colors, size } from "../type/constants";
-import { updateProductStore } from "../\bstores/updateProductStore";
+import { updateProductStore } from "../stores/updateProductStore";
 import { useEditItem } from "../hooks/useEditItemModal";
-import useEditItemStore from "../\bstores/editItemInfoStore";
+import useEditItemStore from "../stores/editItemInfoStore";
 
 export interface Product {
     id: string;

@@ -1,4 +1,4 @@
-import { IParams, getProductId } from "@/app/actions/getProductId";
+import { IParams, getProductId } from "../../../app/actions/getProductId";
 import { ProductDetail } from "./ProductDetail";
 
 // 상품 디테일 페이지 라우팅

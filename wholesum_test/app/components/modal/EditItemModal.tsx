@@ -13,8 +13,8 @@ import axios from "axios";
 import { SignInput } from "../Input";
 import { useEditItem } from "../../hooks/useEditItemModal";
 import { useEffect, useState } from "react";
-import { updateProductStore } from "../../stores/updateProductStore";
-import useEditItemStore from "../../stores/editItemInfoStore";
+import { updateProductStore } from "../../stores/updateProductStore";
+import useEditItemStore from "../../stores/editItemInfoStore";
 
 // react-select 라이브러리 커스텀
 const personnelSelectStyles: StylesConfig = {

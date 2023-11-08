@@ -11,11 +11,6 @@ export const Navbar: React.FC = () => {
     const [isHovering, setIsHovering] = useState(false);
     const AddItemModal = useAddItem();
     //최적화를 위해 useMemo 사용
-    const dropdownClasses = useMemo(() => {
-        return `absolute w-full overflow-hidden z-10 transition-all duration-500 ease-out ${
-            isHovering ? "max-h-full" : "max-h-0"
-        }`;
-    }, [isHovering]);
 
     return (
         <>
@@ -38,7 +33,9 @@ export const Navbar: React.FC = () => {
                 </div>
             </div>
             <div
-                className={dropdownClasses}
+                className={`absolute w-full overflow-hidden z-10 transition-all duration-500 ease-out ${
+                    isHovering ? "max-h-full" : "max-h-0"
+                }`}
                 onMouseLeave={() => setIsHovering(false)}
             >
                 <div

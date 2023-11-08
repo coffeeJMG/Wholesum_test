@@ -130,7 +130,7 @@ export const ProductList: React.FC<categoryProps> = ({ category }) => {
                                         : classPattern.nonStockDiv
                                 }`}
                             >
-                                {product.size1}
+                                1
                             </div>
                             <div
                                 className={`${
@@ -139,7 +139,7 @@ export const ProductList: React.FC<categoryProps> = ({ category }) => {
                                         : classPattern.nonStockDiv
                                 }`}
                             >
-                                {product.size2}
+                                2
                             </div>
                             <div
                                 className={`${
@@ -148,7 +148,7 @@ export const ProductList: React.FC<categoryProps> = ({ category }) => {
                                         : classPattern.nonStockDiv
                                 }`}
                             >
-                                {product.size3}
+                                3
                             </div>
                             <div
                                 className={`${
@@ -157,7 +157,7 @@ export const ProductList: React.FC<categoryProps> = ({ category }) => {
                                         : classPattern.nonStockDiv
                                 }`}
                             >
-                                {product.size4}
+                                4
                             </div>
                         </div>
                     </div>

@@ -8,8 +8,9 @@
 
 1. wholesum_test 폴더 위치로 이동
 2. npm i
-3. npm run dev
-4. localhost:3000 번 접속
+3. sudo prisma generate 
+4. npm run dev
+5. localhost:3000 번 접속
 
 ### 워크 플로우
 

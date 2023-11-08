@@ -1,12 +1,12 @@
 "use client";
 
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { border, classPattern, colors, size } from "../type/constants";
 import { updateProductStore } from "../stores/updateProductStore";
 import { useEditItem } from "../hooks/useEditItemModal";
 import useEditItemStore from "../stores/editItemInfoStore";
+import api from "../\bapi";
 
 export interface Product {
     id: string;
@@ -42,7 +42,7 @@ export const ProductList: React.FC<categoryProps> = ({ category }) => {
         const fetchProductList = async () => {
             try {
                 setUpdatedProductList(false);
-                const response = await axios.post("/api/productList", {
+                const response = await api.post("/api/productList", {
                     category,
                 });
 
@@ -58,7 +58,7 @@ export const ProductList: React.FC<categoryProps> = ({ category }) => {
     // 상품 삭제 함수
     const handleDelete = async (productId: string) => {
         try {
-            await axios.delete("/api/deleteItem", {
+            await api.delete("/api/deleteItem", {
                 data: { id: productId },
             });
             setUpdatedProductList(true);

@@ -9,11 +9,11 @@ import {
 } from "react-hook-form";
 import ReactSelect, { StylesConfig } from "react-select";
 
-import axios from "axios";
 import { SignInput } from "../Input";
 import { useAddItem } from "../../hooks/useAddItemModal";
 import { useState } from "react";
 import { updateProductStore } from "../../stores/updateProductStore";
+import api from "@/app/\bapi";
 
 // react-select 라이브러리 커스텀
 const personnelSelectStyles: StylesConfig = {
@@ -87,7 +87,7 @@ const AddItemModal = () => {
                 const filename = encodeURIComponent(file.name); // 사진 업로드시에 상태에 저장된 파일 이름 인코딩
 
                 // 업로드 데이터 요청 후 반환받는 api요청
-                const { data: imageData } = await axios.post("/api/image", {
+                const { data: imageData } = await api.post("/api/image", {
                     filename,
                 });
                 const formData = new FormData();
@@ -139,7 +139,7 @@ const AddItemModal = () => {
             };
 
             // 여기서 서버로 상품 추가 요청을 보냅니다.
-            const response = await axios.post("/api/addItem", postData);
+            const response = await api.post("/api/addItem", postData);
             setUpdatedProductList(true);
             newAddItemModal.onClose();
             reset({

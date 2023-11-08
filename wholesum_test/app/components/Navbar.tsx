@@ -2,11 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { border, classPattern, colors, size } from "../type/constants";
-import { useMemo, useState } from "react";
+import { memo, useState } from "react";
 import { useAddItem } from "../hooks/useAddItemModal";
 
 // 네비게이션 컴포넌트
-export const Navbar: React.FC = () => {
+const Navbar: React.FC = () => {
     const router = useRouter();
     const [isHovering, setIsHovering] = useState(false);
     const AddItemModal = useAddItem();
@@ -88,3 +88,5 @@ export const Navbar: React.FC = () => {
         </>
     );
 };
+
+export default memo(Navbar);

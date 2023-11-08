@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ClientOnly } from "./ClientOnly";
 import { Container } from "./components/Container";
-import { Navbar } from "./components/Navbar";
+import Navbar from "./components/Navbar";
 import AddItemModal from "./components/modal/AddItemModal";
 import EditItemModal from "./components/modal/EditItemModal";
 
